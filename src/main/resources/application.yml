@@ -1,0 +1,28 @@
+# Anything that goes here is made globally for all profiles.
+spring:
+  application:
+    name: fems
+---
+# Anything that goes here is made specifically for local's profile.
+#spring:
+#  profiles: cloud
+#server:
+#  port: 8080
+#product:
+#  url: http://localhost:8081
+#location:
+#  url: http://localhost:8082
+#balance:
+#  url: http://localhost:8090
+---
+# Anything that goes here is made specifically for local's profile.
+spring:
+  profiles: local, default
+server:
+  port: 8080
+product:
+  url: http://localhost:8081
+location:
+  url: http://localhost:8082
+balance:
+  url: http://localhost:8090
