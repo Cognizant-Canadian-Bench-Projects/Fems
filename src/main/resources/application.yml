@@ -1,4 +1,5 @@
 # Anything that goes here is made globally for all profiles.
+
 spring:
   application:
     name: fems
@@ -18,6 +19,7 @@ spring:
 # Anything that goes here is made specifically for local's profile.
 spring:
   profiles: local, default
+
 server:
   port: 8080
 product:
@@ -26,3 +28,9 @@ location:
   url: http://localhost:8082
 balance:
   url: http://localhost:8090
+
+feign:
+  client:
+    config:
+      postFeignClient:
+        loggerLevel: FULL

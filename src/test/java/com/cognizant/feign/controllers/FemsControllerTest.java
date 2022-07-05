@@ -28,7 +28,7 @@ class FemsControllerTest {
 
   @Test
   void getProductByName() {
-   femsController.getProductByName("shirt");
-   Mockito.verify(productService, times(1)).getProductByName("shirt");
+   femsController.findProductByName("shirt");
+   Mockito.verify(productService, times(1)).findProductByName("shirt");
   }
 }

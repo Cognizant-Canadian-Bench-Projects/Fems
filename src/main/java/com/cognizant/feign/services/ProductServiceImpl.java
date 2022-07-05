@@ -11,7 +11,12 @@ public class ProductServiceImpl implements ProductService{
   private ProductFeignClient productFeignClient;
 
   @Override
-  public Product getProductByName(String name) {
-    return productFeignClient.getProductByName(name);
+  public Product findProductByName(String name) {
+    if(name == ""){
+      throw new IllegalArgumentException("Please provide the product name");
+    }
+    return productFeignClient.findProductByName(name);
   }
 }
+
+

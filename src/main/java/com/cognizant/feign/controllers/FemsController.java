@@ -9,15 +9,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+
+
 @RestController
-@CrossOrigin(origins = "${ui.url}", allowCredentials = "true")
+@CrossOrigin
 public class FemsController {
   @Autowired
   ProductService productService;
 
   @GetMapping("/products")
-  public ResponseEntity<?> getProductByName(@RequestParam String name) {
-    Product product = productService.getProductByName(name);
+  public ResponseEntity<?> findProductByName(@RequestParam String name) {
+    try {
+    Product product = productService.findProductByName(name);
     return ResponseEntity.ok(product);
+    }catch(IllegalArgumentException e) {
+      return ResponseEntity.status(400).body(e.getMessage());
+    }
   }
 }

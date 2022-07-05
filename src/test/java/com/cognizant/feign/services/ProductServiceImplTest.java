@@ -11,7 +11,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -44,8 +43,8 @@ class ProductServiceImplTest {
 
   @Test
   void getProductByName() {
-    when(productFeignClient.getProductByName("shirt")).thenReturn(product1);
-    Product actual = productService.getProductByName("shirt");
+    when(productFeignClient.findProductByName("shirt")).thenReturn(product1);
+    Product actual = productService.findProductByName("shirt");
     assertThat(actual).isEqualTo(product1);
   }
 }
