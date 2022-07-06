@@ -60,4 +60,33 @@ class FemsControllerTest {
     ResponseEntity<?> actual = femsController.findProductByName("shirts");
     assertThat(actual.getStatusCodeValue()).isEqualTo(400);
   }
+
+  @Test
+  void getLocationByName() {
+    femsController.findProductByName("toronto");
+    Mockito.verify(productService, times(1)).findProductByName("toronto");
+  }
+
+  @Test
+  void getLocationByName_FeignException_404() {
+    CustomFeignException e = new CustomFeignException(404,"You have an error");
+    when(productService.findProductByName("torrent")).thenThrow(e);
+    ResponseEntity<?> actual = femsController.findProductByName("torrent");
+    assertThat(actual.getStatusCodeValue()).isEqualTo(404);
+  }
+
+  @Test
+  void getLocationByName_FeignException_400() {
+    CustomFeignException e = new CustomFeignException(400,"You have an error");
+    when(productService.findProductByName("torontoo")).thenThrow(e);
+    ResponseEntity<?> actual = femsController.findProductByName("torontoo");
+    assertThat(actual.getStatusCodeValue()).isEqualTo(400);
+  }
+
+  @Test
+  void getLocationByName_IllegalArgumentException() {
+    when(productService.findProductByName("torontoo")).thenThrow(IllegalArgumentException.class);
+    ResponseEntity<?> actual = femsController.findProductByName("torontoo");
+    assertThat(actual.getStatusCodeValue()).isEqualTo(400);
+  }
 }
