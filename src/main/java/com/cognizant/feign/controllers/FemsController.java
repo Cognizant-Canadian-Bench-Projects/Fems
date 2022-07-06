@@ -2,6 +2,7 @@ package com.cognizant.feign.controllers;
 
 import com.cognizant.feign.models.Product;
 import com.cognizant.feign.services.ProductService;
+import feign.FeignException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -19,11 +20,23 @@ public class FemsController {
 
   @GetMapping("/products")
   public ResponseEntity<?> findProductByName(@RequestParam String name) {
+    Product product = null;
     try {
-    Product product = productService.findProductByName(name);
-    return ResponseEntity.ok(product);
-    }catch(IllegalArgumentException e) {
+      product = productService.findProductByName(name);
+    }catch(FeignException e) {
+      return checkFeignException(e,name);
+    }catch(IllegalArgumentException e){
       return ResponseEntity.status(400).body(e.getMessage());
+    }
+    return ResponseEntity.ok(product);
+  }
+
+  private ResponseEntity<?> checkFeignException(FeignException e, String name){
+    switch(e.status()){
+      case 404:
+        return ResponseEntity.status(404).body(name + " does not exist");
+      default:
+        return ResponseEntity.status(400).body("Bad Request");
     }
   }
 }

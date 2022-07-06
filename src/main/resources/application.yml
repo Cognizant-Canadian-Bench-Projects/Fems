@@ -32,5 +32,5 @@ balance:
 feign:
   client:
     config:
-      postFeignClient:
-        loggerLevel: FULL
+      productFeignClient:
+        loggerLevel: BASIC
