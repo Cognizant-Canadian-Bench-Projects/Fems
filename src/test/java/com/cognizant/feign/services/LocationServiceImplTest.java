@@ -3,6 +3,7 @@ package com.cognizant.feign.services;
 import com.cognizant.feign.client.LocationFeignClient;
 import com.cognizant.feign.models.Location;
 import com.cognizant.feign.models.Product;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -40,5 +41,12 @@ class LocationServiceImplTest {
         when(locationFeignClient.findLocationByName("toronto")).thenReturn(location1);
        Location actual = locationService.findLocationByName("toronto");
         assertThat(actual).isEqualTo(location1);
+    }
+
+    @Test
+    void getLocationByName_Negative() {
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            locationService.findLocationByName("");
+        });
     }
 }

@@ -3,6 +3,7 @@ package com.cognizant.feign.services;
 import com.cognizant.feign.client.ProductFeignClient;
 import com.cognizant.feign.models.Department;
 import com.cognizant.feign.models.Product;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -46,5 +47,12 @@ class ProductServiceImplTest {
     when(productFeignClient.findProductByName("shirt")).thenReturn(product1);
     Product actual = productService.findProductByName("shirt");
     assertThat(actual).isEqualTo(product1);
+  }
+
+  @Test
+  void getProductByName_Negative() {
+    Assertions.assertThrows(IllegalArgumentException.class,()->{
+      productService.findProductByName("");
+    });
   }
 }
