@@ -72,7 +72,7 @@ public class FemsController {
         List<Balance> balanceList = null;
         Balance balance = null;
         try {
-            if (locationId == "") {
+            if (locationId.equals("")) {
                 balanceList = balanceService.findByProductId(productId);
                 return ResponseEntity.ok(balanceList);
             } else {

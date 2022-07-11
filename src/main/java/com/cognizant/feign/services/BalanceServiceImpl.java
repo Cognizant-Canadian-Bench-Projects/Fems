@@ -18,7 +18,7 @@ public class BalanceServiceImpl implements BalanceService {
     @Override
     public List<Balance> findByProductId(String productId) {
         List<Balance> balanceList = new ArrayList<>();
-        if (productId == "") {
+        if (productId.equals("")) {
             throw new IllegalArgumentException("Please provide a productId");
         }
         return balanceFeignClient.findByProductId(productId);
