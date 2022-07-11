@@ -13,9 +13,17 @@ public class LocationServiceImpl implements LocationService {
 
      @Override
     public Location findLocationByName(String name) {
-         if(name == ""){
+         if(name.equals("")){
              throw new IllegalArgumentException("Please provide the location name");
          }
          return locationFeignClient.findLocationByName(name);
      }
+
+    @Override
+    public Location findLocationById(int id) {
+        if(id <= 0){
+            throw new IllegalArgumentException("Please provide the location id");
+        }
+        return locationFeignClient.findLocationById(id);
+    }
 }

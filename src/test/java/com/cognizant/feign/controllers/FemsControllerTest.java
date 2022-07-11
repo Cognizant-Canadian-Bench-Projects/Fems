@@ -70,6 +70,35 @@ class FemsControllerTest {
   }
 
   @Test
+  void getLocationById() {
+    femsController.findLocationById(0);
+    Mockito.verify(locationService, times(1)).findLocationById(0);
+  }
+
+  @Test
+  void getLocationById_FeignException_404() {
+    CustomFeignException e = new CustomFeignException(404,"You have an error");
+    when(locationService.findLocationById(0)).thenThrow(e);
+    ResponseEntity<?> actual = femsController.findLocationById(0);
+    assertThat(actual.getStatusCodeValue()).isEqualTo(404);
+  }
+
+  @Test
+  void getLocationById_FeignException_400() {
+    CustomFeignException e = new CustomFeignException(400,"You have an error");
+    when(locationService.findLocationById(0)).thenThrow(e);
+    ResponseEntity<?> actual = femsController.findLocationById(0);
+    assertThat(actual.getStatusCodeValue()).isEqualTo(400);
+  }
+
+  @Test
+  void getLocationById_IllegalArgumentException() {
+    when(locationService.findLocationById(0)).thenThrow(IllegalArgumentException.class);
+    ResponseEntity<?> actual = femsController.findLocationById(0);
+    assertThat(actual.getStatusCodeValue()).isEqualTo(400);
+  }
+
+  @Test
   void getLocationByName() {
     femsController.findLocationByName("toronto");
     Mockito.verify(locationService, times(1)).findLocationByName("toronto");

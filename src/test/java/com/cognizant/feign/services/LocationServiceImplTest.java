@@ -49,4 +49,18 @@ class LocationServiceImplTest {
             locationService.findLocationByName("");
         });
     }
+
+    @Test
+    void getLocationById_Positive(){
+        when(locationFeignClient.findLocationById(1)).thenReturn(location1);
+        Location actual = locationService.findLocationById(1);
+        assertThat(actual).isEqualTo(location1);
+    }
+
+    @Test
+    void getLocationById_Negative(){
+        Assertions.assertThrows(IllegalArgumentException.class, () -> {
+            locationService.findLocationById(0);
+        });
+    }
 }

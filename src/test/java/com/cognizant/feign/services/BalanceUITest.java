@@ -11,6 +11,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
@@ -44,11 +45,13 @@ public class BalanceUITest {
         location1 =new Location(1,"toronto","m1p3r1t");
         locationList= new ArrayList<>();
         locationList.add(location1);
-        balance1 = new Balance(1,2,3,123);
-        balance2 = new Balance(2,3,4,234);
+        locationList.add(location1);
+        balance1 = new Balance(1,2,3,100);
+        balance2 = new Balance(2,3,4,200);
         balanceList = new ArrayList<>();
         balanceList.add(balance1);
-        balanceUI1 = new BalanceUI(product1,locationList,8);
+        balanceList.add(balance2);
+        balanceUI1 = new BalanceUI(product1,locationList,300);
 
     }
 
@@ -56,7 +59,10 @@ public class BalanceUITest {
     void getProductByName(){
         when(productService.findProductByName("shirt")).thenReturn(product1);
         when(balanceService.findByProductId(""+product1.getId())).thenReturn(balanceList);
-        when(locationService.f)
+        when(locationService.findLocationById(balance1.getLocationId())).thenReturn(location1);
+        when(locationService.findLocationById(balance2.getLocationId())).thenReturn(location1);
+        BalanceUI actual = balanceUIService.getProductByName("shirt");
+        assertThat(actual).isEqualTo(balanceUI1);
     }
 
 }
