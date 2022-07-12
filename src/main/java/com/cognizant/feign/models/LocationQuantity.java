@@ -4,13 +4,10 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class BalanceUI {
-    private Product product;
-    private List<LocationQuantity> locationList;
+public class LocationQuantity {
+    private Location location;
     private int quantity;
 }

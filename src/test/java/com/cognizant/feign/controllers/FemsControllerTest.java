@@ -1,10 +1,7 @@
 package com.cognizant.feign.controllers;
 
 import com.cognizant.feign.exceptions.CustomFeignException;
-import com.cognizant.feign.services.BalanceServiceImpl;
-import com.cognizant.feign.services.LocationServiceImpl;
-import com.cognizant.feign.services.ProductService;
-import com.cognizant.feign.services.ProductServiceImpl;
+import com.cognizant.feign.services.*;
 import feign.FeignException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -32,6 +29,9 @@ class FemsControllerTest {
 
   @Mock
   BalanceServiceImpl balanceService;
+
+  @Mock
+  BalanceUIService balanceUIService;
 
   @InjectMocks
   FemsController femsController;
@@ -128,46 +128,48 @@ class FemsControllerTest {
   }
 
   @Test
-  void getBalance_findByProductId() {
-    femsController.getBalance("2","");
-    Mockito.verify(balanceService, times(1)).findByProductId("2");
+  void getBalance_findByProductName() {
+    femsController.getBalance("shirt");
+    Mockito.verify(balanceUIService, times(1)).getProductByName("shirt");
   }
 
-  @Test
-  void getBalance_findByProductIdAndLocationId() {
-    femsController.getBalance("2","2");
-    Mockito.verify(balanceService, times(1)).findByProductIdAndLocationId("2","2");
-  }
+//  @Test
+//  void getBalance_findByProductIdAndLocationId() {
+//    femsController.getBalance("shirt");
+//    Mockito.verify(balanceService, times(1)).findByProductIdAndLocationId("2","2");
+//  }
 
   @Test
-  void getBalance_FeignException_FindByProductId_400(){
+  void getBalance_FeignException_FindByProductName_400(){
     CustomFeignException e = new CustomFeignException(400,"You have an error");
-    when(balanceService.findByProductId("")).thenThrow(IllegalArgumentException.class);
-    ResponseEntity<?> actual = femsController.getBalance("","");
+    when(balanceUIService.getProductByName("")).thenThrow(IllegalArgumentException.class);
+    ResponseEntity<?> actual = femsController.getBalance("");
     assertThat(actual.getStatusCodeValue()).isEqualTo(400);
   }
 
-  @Test
-  void getBalance_FeignException_FindByProductIdAndLocation_400(){
-    CustomFeignException e = new CustomFeignException(400,"You have an error");
-    when(balanceService.findByProductIdAndLocationId("","2")).thenThrow(IllegalArgumentException.class);
-    ResponseEntity<?> actual = femsController.getBalance("","2");
-    assertThat(actual.getStatusCodeValue()).isEqualTo(400);
-  }
+//  @Test
+//  void getBalance_FeignException_FindByProductIdAndLocation_400(){
+//    CustomFeignException e = new CustomFeignException(400,"You have an error");
+//    when(balanceService.findByProductIdAndLocationId("","2")).thenThrow(IllegalArgumentException.class);
+//    ResponseEntity<?> actual = femsController.getBalance("");
+//    assertThat(actual.getStatusCodeValue()).isEqualTo(400);
+//  }
 
   @Test
-  void getBalance_FeignException_FindByProductId_404(){
+  void getBalance_FeignException_FindByProductName_404(){
     CustomFeignException e = new CustomFeignException(404,"Product Not Found");
-    when(balanceService.findByProductId("")).thenThrow(e);
-    ResponseEntity<?> actual = femsController.getBalance("","");
+    when(balanceUIService.getProductByName("")).thenThrow(e);
+    ResponseEntity<?> actual = femsController.getBalance("");
     assertThat(actual.getStatusCodeValue()).isEqualTo(404);
   }
 
-  @Test
-  void getBalance_FeignException_FindByProductIdAndLocation_404(){
-    CustomFeignException e = new CustomFeignException(404,"Product Not Found");
-    when(balanceService.findByProductIdAndLocationId("","2")).thenThrow(e);
-    ResponseEntity<?> actual = femsController.getBalance("","2");
-    assertThat(actual.getStatusCodeValue()).isEqualTo(404);
-  }
+//  @Test
+//  void getBalance_FeignException_FindByProductIdAndLocation_404(){
+//    CustomFeignException e = new CustomFeignException(404,"Product Not Found");
+//    when(balanceService.findByProductIdAndLocationId("","2")).thenThrow(e);
+//    ResponseEntity<?> actual = femsController.getBalance("");
+//    assertThat(actual.getStatusCodeValue()).isEqualTo(404);
+//  }
+
+
 }
