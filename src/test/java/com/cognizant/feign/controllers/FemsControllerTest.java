@@ -129,7 +129,7 @@ class FemsControllerTest {
 
   @Test
   void getBalance_findByProductName() {
-    femsController.getBalance("shirt");
+    femsController.getBalance("shirt","");
     Mockito.verify(balanceUIService, times(1)).getProductByName("shirt");
   }
 
@@ -140,10 +140,10 @@ class FemsControllerTest {
 //  }
 
   @Test
-  void getBalance_FeignException_FindByProductName_400(){
+  void getBalance_FeignException_FindByProductNameAndLocationName_400(){
     CustomFeignException e = new CustomFeignException(400,"You have an error");
     when(balanceUIService.getProductByName("")).thenThrow(IllegalArgumentException.class);
-    ResponseEntity<?> actual = femsController.getBalance("");
+    ResponseEntity<?> actual = femsController.getBalance("","");
     assertThat(actual.getStatusCodeValue()).isEqualTo(400);
   }
 
@@ -156,10 +156,10 @@ class FemsControllerTest {
 //  }
 
   @Test
-  void getBalance_FeignException_FindByProductName_404(){
+  void getBalance_FeignException_FindByProductNameAndLocationName_404(){
     CustomFeignException e = new CustomFeignException(404,"Product Not Found");
     when(balanceUIService.getProductByName("")).thenThrow(e);
-    ResponseEntity<?> actual = femsController.getBalance("");
+    ResponseEntity<?> actual = femsController.getBalance("","");
     assertThat(actual.getStatusCodeValue()).isEqualTo(404);
   }
 

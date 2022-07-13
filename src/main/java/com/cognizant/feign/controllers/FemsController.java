@@ -74,10 +74,16 @@ public class FemsController {
     }
 
     @GetMapping("/balance")
-    public ResponseEntity<?> getBalance(@RequestParam String productName) {
+    public ResponseEntity<?> getBalance(@RequestParam String productName, @RequestParam(required = false) String locationName) {
         try {
+            if(locationName==null || locationName.equals("")) {
                 BalanceUI balanceUI = balanceUIService.getProductByName(productName);
                 return ResponseEntity.ok(balanceUI);
+            }
+            else{
+                 BalanceUI balanceUI = balanceUIService.getProductByNameAndLocationName(productName,locationName);
+                 return ResponseEntity.ok(balanceUI);
+            }
         } catch (FeignException e) {
             return FeignUtil.checkFeignException(e);
         } catch (IllegalArgumentException e) {

@@ -34,4 +34,18 @@ public class BalanceUIService {
         BalanceUI balanceUI = new BalanceUI(product, locationList, quantity);
         return balanceUI;
     }
+
+    public BalanceUI getProductByNameAndLocationName(String productName, String locationName) {
+        Product product = productService.findProductByName(productName);
+        Location location = locationService.findLocationByName(locationName);
+        Balance balance = balanceService.findByProductIdAndLocationId("" + product.getId(),"" + location.getId());
+        List<LocationQuantity> locationList = new ArrayList<>();
+        int quantity = 0;
+            LocationQuantity locationQuantity = new LocationQuantity(location,balance.getQuantity());
+            locationList.add(locationQuantity);
+            quantity = balance.getQuantity();
+
+        BalanceUI balanceUI = new BalanceUI(product, locationList, quantity);
+        return balanceUI;
+    }
 }
