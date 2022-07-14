@@ -91,6 +91,11 @@ public class FemsController {
         }
     }
 
+    //TODO 1: Get all balances
+    @GetMapping("inventory")
+    public ResponseEntity<?> getInventory(){
+        return ResponseEntity.ok(balanceUIService.getInventory());
+    }
 }
 
 
