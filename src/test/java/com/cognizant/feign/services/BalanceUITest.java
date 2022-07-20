@@ -36,22 +36,26 @@ public class BalanceUITest {
     Balance balance2;
     BalanceUI balanceUI1;
     BalanceUI balanceUI2;
-    List<Location> locationList;
+    LocationQuantity locationQuantity1;
+    LocationQuantity locationQuantity2;
+    List<LocationQuantity> locationList;
     List<Balance> balanceList;
     @BeforeEach
     void setUp(){
         department1=new Department(1,"clothing");
         product1 = new Product(1,"shirt",department1);
         location1 =new Location(1,"toronto","m1p3r1t");
+        locationQuantity1 = new LocationQuantity(location1, 200);
+        locationQuantity2 = new LocationQuantity(location1, 300);
         locationList= new ArrayList<>();
-        locationList.add(location1);
-        locationList.add(location1);
-        balance1 = new Balance(1,2,3,100);
-        balance2 = new Balance(2,3,4,200);
+        locationList.add(locationQuantity1);
+        locationList.add(locationQuantity2);
+        balance1 = new Balance(1,1,1,200);
+        balance2 = new Balance(2,1,2,300);
         balanceList = new ArrayList<>();
         balanceList.add(balance1);
         balanceList.add(balance2);
-        balanceUI1 = new BalanceUI(product1,locationList,300);
+        balanceUI1 = new BalanceUI(product1,locationList,500);
 
     }
 

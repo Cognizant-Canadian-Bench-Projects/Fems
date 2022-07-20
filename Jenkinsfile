@@ -26,19 +26,19 @@ pipeline {
             }
         }
 
-        stage('integration-test') {
-              when { not { changeRequest() } }
-                steps {
-                    script {
-                        try {
-                            sh './gradlew integrationTest'
-                        } catch (exec) {
-                            // this is so we can capture the results in 'finally' below
-                            throw exec
-                        }
-                    }
-                }
-            }
+//         stage('integration-test') {
+//               when { not { changeRequest() } }
+//                 steps {
+//                     script {
+//                         try {
+//                             sh './gradlew integrationTest'
+//                         } catch (exec) {
+//                             // this is so we can capture the results in 'finally' below
+//                             throw exec
+//                         }
+//                     }
+//                 }
+//             }
 
         stage('Deploy') {
             when { branch 'main' }
