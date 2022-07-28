@@ -55,8 +55,7 @@ public class BalanceUITest {
         balanceList = new ArrayList<>();
         balanceList.add(balance1);
         balanceList.add(balance2);
-        balanceUI1 = new BalanceUI(product1,locationList,500);
-
+        balanceUI1 = new BalanceUI(product1.getId(),product1,locationList,500);
     }
 
     @Test

@@ -33,7 +33,7 @@ public class BalanceUIService {
             quantity += balance.getQuantity();
         }
 
-        BalanceUI balanceUI = new BalanceUI(product, locationList, quantity);
+        BalanceUI balanceUI = new BalanceUI(product.getId(),product, locationList, quantity);
         return balanceUI;
     }
 
@@ -47,7 +47,7 @@ public class BalanceUIService {
             locationList.add(locationQuantity);
             quantity = balance.getQuantity();
 
-        BalanceUI balanceUI = new BalanceUI(product, locationList, quantity);
+        BalanceUI balanceUI = new BalanceUI(product.getId(),product, locationList, quantity);
         return balanceUI;
     }
 
@@ -64,7 +64,7 @@ public class BalanceUIService {
                 locationList.add(locationQuantity);
                 quantity += balance.getQuantity();
             }
-            BalanceUI balanceUI = new BalanceUI(product, locationList, quantity);
+            BalanceUI balanceUI = new BalanceUI(product.getId(),product, locationList, quantity);
             balanceUIS.add(balanceUI);
         }
         return balanceUIS;
