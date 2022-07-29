@@ -1,6 +1,5 @@
 package com.cognizant.feign.controllers;
 
-import com.cognizant.feign.exceptions.CustomFeignException;
 import com.cognizant.feign.services.BalanceUIService;
 import com.cognizant.feign.services.LocationServiceImpl;
 import com.cognizant.feign.services.ProductServiceImpl;
@@ -91,14 +90,6 @@ class FemsControllerTest {
   void getInventory() {
     femsController.getInventory();
     Mockito.verify(balanceUIService, times(1)).getInventory();
-  }
-
-  @Test
-  void getBalance_FeignException_FindByProductNameAndLocationName_400() {
-    CustomFeignException e = new CustomFeignException(400, "You have an error");
-    when(balanceUIService.getProductByName("")).thenThrow(IllegalArgumentException.class);
-    ResponseEntity<?> actual = femsController.getBalance("", "");
-    assertThat(actual.getStatusCodeValue()).isEqualTo(400);
   }
 
 //  @Test

@@ -16,9 +16,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 class FeignUtilTest {
 
+  private final Map<String, Collection<String>> headers = new LinkedHashMap<>();
   FeignUtil feignUtil;
   Response response;
-  private final Map<String, Collection<String>> headers = new LinkedHashMap<>();
 
   @BeforeEach
   void setup() {

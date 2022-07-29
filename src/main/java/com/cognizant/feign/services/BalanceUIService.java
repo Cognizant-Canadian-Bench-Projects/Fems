@@ -30,7 +30,7 @@ public class BalanceUIService {
       locationList.add(locationQuantity);
       quantity += balance.getQuantity();
     }
-    return  new BalanceUI(product.getId(), product, locationList, quantity);
+    return new BalanceUI(product.getId(), product, locationList, quantity);
   }
 
   public BalanceUI getProductByNameAndLocationName(String productName, String locationName) {
@@ -42,7 +42,7 @@ public class BalanceUIService {
     LocationQuantity locationQuantity = new LocationQuantity(location, balance.getQuantity());
     locationList.add(locationQuantity);
     quantity = balance.getQuantity();
-    return  new BalanceUI(product.getId(), product, locationList, quantity);
+    return new BalanceUI(product.getId(), product, locationList, quantity);
   }
 
   public List<BalanceUI> getInventory() {
