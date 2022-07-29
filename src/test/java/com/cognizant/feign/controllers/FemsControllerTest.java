@@ -28,9 +28,6 @@ class FemsControllerTest {
   LocationServiceImpl locationService;
 
   @Mock
-  BalanceServiceImpl balanceService;
-
-  @Mock
   BalanceUIService balanceUIService;
 
   @InjectMocks
