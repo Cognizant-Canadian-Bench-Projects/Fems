@@ -43,22 +43,6 @@ class FemsControllerTest {
   }
 
   @Test
-  void getProductByName_FeignException_404() {
-    CustomFeignException e = new CustomFeignException(404, "You have an error");
-    when(productService.findProductByName("shirts")).thenThrow(e);
-    ResponseEntity<?> actual = femsController.findProductByName("shirts");
-    assertThat(actual.getStatusCodeValue()).isEqualTo(404);
-  }
-
-  @Test
-  void getProductByName_FeignException_400() {
-    CustomFeignException e = new CustomFeignException(400, "You have an error");
-    when(productService.findProductByName("shirts")).thenThrow(e);
-    ResponseEntity<?> actual = femsController.findProductByName("shirts");
-    assertThat(actual.getStatusCodeValue()).isEqualTo(400);
-  }
-
-  @Test
   void getProductByName_IllegalArgumentException() {
     when(productService.findProductByName("shirts")).thenThrow(IllegalArgumentException.class);
     ResponseEntity<?> actual = femsController.findProductByName("shirts");
@@ -72,22 +56,6 @@ class FemsControllerTest {
   }
 
   @Test
-  void getLocationById_FeignException_404() {
-    CustomFeignException e = new CustomFeignException(404, "You have an error");
-    when(locationService.findLocationById(0)).thenThrow(e);
-    ResponseEntity<?> actual = femsController.findLocationById(0);
-    assertThat(actual.getStatusCodeValue()).isEqualTo(404);
-  }
-
-  @Test
-  void getLocationById_FeignException_400() {
-    CustomFeignException e = new CustomFeignException(400, "You have an error");
-    when(locationService.findLocationById(0)).thenThrow(e);
-    ResponseEntity<?> actual = femsController.findLocationById(0);
-    assertThat(actual.getStatusCodeValue()).isEqualTo(400);
-  }
-
-  @Test
   void getLocationById_IllegalArgumentException() {
     when(locationService.findLocationById(0)).thenThrow(IllegalArgumentException.class);
     ResponseEntity<?> actual = femsController.findLocationById(0);
@@ -98,22 +66,6 @@ class FemsControllerTest {
   void getLocationByName() {
     femsController.findLocationByName("toronto");
     Mockito.verify(locationService, times(1)).findLocationByName("toronto");
-  }
-
-  @Test
-  void getLocationByName_FeignException_404() {
-    CustomFeignException e = new CustomFeignException(404, "You have an error");
-    when(locationService.findLocationByName("torrent")).thenThrow(e);
-    ResponseEntity<?> actual = femsController.findLocationByName("torrent");
-    assertThat(actual.getStatusCodeValue()).isEqualTo(404);
-  }
-
-  @Test
-  void getLocationByName_FeignException_400() {
-    CustomFeignException e = new CustomFeignException(400, "You have an error");
-    when(locationService.findLocationByName("torontoo")).thenThrow(e);
-    ResponseEntity<?> actual = femsController.findLocationByName("torontoo");
-    assertThat(actual.getStatusCodeValue()).isEqualTo(400);
   }
 
   @Test
@@ -157,13 +109,6 @@ class FemsControllerTest {
 //    assertThat(actual.getStatusCodeValue()).isEqualTo(400);
 //  }
 
-  @Test
-  void getBalance_FeignException_FindByProductNameAndLocationName_404() {
-    CustomFeignException e = new CustomFeignException(404, "Product Not Found");
-    when(balanceUIService.getProductByName("")).thenThrow(e);
-    ResponseEntity<?> actual = femsController.getBalance("", "");
-    assertThat(actual.getStatusCodeValue()).isEqualTo(404);
-  }
 
 //  @Test
 //  void getBalance_FeignException_FindByProductIdAndLocation_404(){
