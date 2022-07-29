@@ -12,7 +12,7 @@ public class FeignUtil implements ErrorDecoder {
   public Exception decode(String methodKey, Response response) {
     switch (response.status()) {
       case 400:
-        return new ResponseStatusException(HttpStatus.valueOf(response.status()), "Product id or location id is illegal")
+        return new ResponseStatusException(HttpStatus.valueOf(response.status()), "Product id or location id is illegal");
       break;
       case 404:
         if (methodKey.contains("findByProductId")) {
