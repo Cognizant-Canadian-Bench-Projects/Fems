@@ -14,8 +14,4 @@ public interface ProductFeignClient {
 
   @GetMapping("/products")
   Product findProductByName(@RequestParam String name);
-
-  //Only be used by the balance service
-//  @GetMapping("/products/{id}")
-//  Product getProductById(@PathParam("id") int productId);
 }

@@ -10,7 +10,8 @@ import java.util.List;
 @AllArgsConstructor
 @Data
 public class BalanceUI {
-    private Product product;
-    private List<LocationQuantity> locationList;
-    private int quantity;
+  private int id;
+  private Product product;
+  private List<LocationQuantity> locationList;
+  private int quantity;
 }
