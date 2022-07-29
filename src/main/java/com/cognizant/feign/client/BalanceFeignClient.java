@@ -7,12 +7,15 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
-@FeignClient(name="balance", url = "${balance.url}")
+@FeignClient(name = "balance", url = "${balance.url}")
 public interface BalanceFeignClient {
 
-    @GetMapping("/balance")
-    List<Balance> findByProductId(@RequestParam String productId );
+  @GetMapping("/balance")
+  List<Balance> findByProductId(@RequestParam String productId);
 
-    @GetMapping("/balance")
-    Balance findByProductIdAndLocationId(@RequestParam int productId, @RequestParam int locationId );
+  @GetMapping("/balance")
+  Balance findByProductIdAndLocationId(@RequestParam int productId, @RequestParam int locationId);
+
+  @GetMapping("/balance")
+  List<Balance> getAllBalance();
 }

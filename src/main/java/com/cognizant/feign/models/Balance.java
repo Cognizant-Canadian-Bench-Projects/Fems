@@ -9,8 +9,8 @@ import lombok.NoArgsConstructor;
 @Data
 public class Balance {
 
-    private int id;
-    private int productId;
-    private int locationId;
-    private int quantity;
+  private int id;
+  private int productId;
+  private int locationId;
+  private int quantity;
 }

@@ -9,5 +9,5 @@ import lombok.NoArgsConstructor;
 @Data
 public class Department {
   private int id;
-  private String departmentName;
+  private String name;
 }
