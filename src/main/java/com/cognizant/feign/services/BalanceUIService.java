@@ -45,20 +45,24 @@ public class BalanceUIService {
     return new BalanceUI(product.getId(), product, locationList, quantity);
   }
 
-  public List<BalanceUI> getInventory() {
+  public List<BalanceUI> getInventory(){
     List<Product> productList = productService.getAllProducts();
     List<BalanceUI> balanceUIS = new ArrayList<>();
-    for (Product product : productList) {
-      List<Balance> balanceList = balanceService.findByProductId("" + product.getId());
-      List<LocationQuantity> locationList = new ArrayList<>();
-      int quantity = 0;
-      for (Balance balance : balanceList) {
-        LocationQuantity locationQuantity = new LocationQuantity(locationService.findLocationById(balance.getLocationId()), balance.getQuantity());
-        locationList.add(locationQuantity);
-        quantity += balance.getQuantity();
-      }
-      balanceUIS.add(new BalanceUI(product.getId(), product, locationList, quantity));
-    }
+
+    productList.parallelStream().forEach(item -> createBalanceUI(item,balanceUIS));
+
     return balanceUIS;
+  }
+
+  private void createBalanceUI(Product product,  List<BalanceUI> balanceUIS ){
+    List<Balance> balanceList = balanceService.findByProductId("" + product.getId());
+    List<LocationQuantity> locationList = new ArrayList<>();
+    int quantity = 0;
+    for (Balance balance : balanceList) {
+      LocationQuantity locationQuantity = new LocationQuantity(locationService.findLocationById(balance.getLocationId()), balance.getQuantity());
+      locationList.add(locationQuantity);
+      quantity += balance.getQuantity();
+    }
+    balanceUIS.add(new BalanceUI(product.getId(), product, locationList, quantity));
   }
 }

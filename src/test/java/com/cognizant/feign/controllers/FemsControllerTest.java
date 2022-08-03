@@ -87,7 +87,7 @@ class FemsControllerTest {
   }
 
   @Test
-  void getInventory() {
+  void getInventory() throws InterruptedException {
     femsController.getInventory();
     Mockito.verify(balanceUIService, times(1)).getInventory();
   }

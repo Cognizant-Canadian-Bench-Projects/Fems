@@ -60,20 +60,20 @@ public class FemsController {
   @GetMapping("/balance")
   public ResponseEntity<?> getBalance(@RequestParam String productName, @RequestParam(required = false) String locationName) {
     try {
+      BalanceUI balanceUI;
       if (locationName == null || locationName.equals("")) {
-        BalanceUI balanceUI = balanceUIService.getProductByName(productName);
-        return ResponseEntity.ok(balanceUI);
+        balanceUI = balanceUIService.getProductByName(productName);
       } else {
-        BalanceUI balanceUI = balanceUIService.getProductByNameAndLocationName(productName, locationName);
-        return ResponseEntity.ok(balanceUI);
+        balanceUI = balanceUIService.getProductByNameAndLocationName(productName, locationName);
       }
+      return ResponseEntity.ok(balanceUI);
     } catch (IllegalArgumentException e) {
       return ResponseEntity.status(400).body(e.getMessage());
     }
   }
 
   @GetMapping("/inventory")
-  public ResponseEntity<?> getInventory() {
+  public ResponseEntity<?> getInventory() throws InterruptedException {
     return ResponseEntity.ok(balanceUIService.getInventory());
   }
 }
