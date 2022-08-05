@@ -7,6 +7,7 @@ import com.cognizant.feign.services.BalanceUIService;
 import com.cognizant.feign.services.LocationService;
 import com.cognizant.feign.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
