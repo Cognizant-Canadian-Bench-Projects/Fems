@@ -9,21 +9,21 @@ import java.util.List;
 
 @Service
 public class ProductServiceImpl implements ProductService {
-  @Autowired
-  private ProductFeignClient productFeignClient;
+    @Autowired
+    private ProductFeignClient productFeignClient;
 
-  @Override
-  public Product findProductByName(String name) {
-    if (name.equals("")) {
-      throw new IllegalArgumentException("Please provide the product name");
+    @Override
+    public Product findProductByName(String name) {
+        if (name.equals("")) {
+            throw new IllegalArgumentException("Please provide the product name");
+        }
+        return productFeignClient.findProductByName(name);
     }
-    return productFeignClient.findProductByName(name);
-  }
 
-  @Override
-  public List<Product> getAllProducts() {
-    return productFeignClient.getAllProducts();
-  }
+    @Override
+    public List<Product> getAllProducts() {
+        return productFeignClient.getAllProducts();
+    }
 
 }
 

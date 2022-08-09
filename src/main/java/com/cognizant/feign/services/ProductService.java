@@ -5,7 +5,7 @@ import com.cognizant.feign.models.Product;
 import java.util.List;
 
 public interface ProductService {
-  List<Product> getAllProducts();
+    List<Product> getAllProducts();
 
-  Product findProductByName(String name);
+    Product findProductByName(String name);
 }

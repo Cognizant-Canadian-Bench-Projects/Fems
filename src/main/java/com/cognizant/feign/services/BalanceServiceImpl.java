@@ -10,31 +10,31 @@ import java.util.List;
 @Service
 public class BalanceServiceImpl implements BalanceService {
 
-  @Autowired
-  private BalanceFeignClient balanceFeignClient;
+    @Autowired
+    private BalanceFeignClient balanceFeignClient;
 
 
-  @Override
-  public List<Balance> findByProductId(String productId) {
-    if (productId.equals("")) {
-      throw new IllegalArgumentException("Please provide a productId");
+    @Override
+    public List<Balance> findByProductId(String productId) {
+        if (productId.equals("")) {
+            throw new IllegalArgumentException("Please provide a productId");
+        }
+        return balanceFeignClient.findByProductId(productId);
     }
-    return balanceFeignClient.findByProductId(productId);
-  }
 
-  @Override
-  public Balance findByProductIdAndLocationId(String productId, String locationId) {
-    try {
-      int intProductId = Integer.parseInt(productId);
-      int intLocationId = Integer.parseInt(locationId);
-      return balanceFeignClient.findByProductIdAndLocationId(intProductId, intLocationId);
-    } catch (NumberFormatException e) {
-      throw new IllegalArgumentException("Product id or location id is illegal");
+    @Override
+    public Balance findByProductIdAndLocationId(String productId, String locationId) {
+        try {
+            int intProductId = Integer.parseInt(productId);
+            int intLocationId = Integer.parseInt(locationId);
+            return balanceFeignClient.findByProductIdAndLocationId(intProductId, intLocationId);
+        } catch (NumberFormatException e) {
+            throw new IllegalArgumentException("Product id or location id is illegal");
+        }
     }
-  }
 
-  @Override
-  public List<Balance> getAllBalance() {
-    return balanceFeignClient.getAllBalance();
-  }
+    @Override
+    public List<Balance> getAllBalance() {
+        return balanceFeignClient.getAllBalance();
+    }
 }

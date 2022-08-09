@@ -10,59 +10,59 @@ import java.util.List;
 @Service
 public class BalanceUIService {
 
-  @Autowired
-  ProductService productService;
+    @Autowired
+    ProductService productService;
 
-  @Autowired
-  LocationService locationService;
+    @Autowired
+    LocationService locationService;
 
-  @Autowired
-  BalanceService balanceService;
+    @Autowired
+    BalanceService balanceService;
 
-  public BalanceUI getProductByName(String productName) {
-    Product product = productService.findProductByName(productName);
-    List<Balance> balanceList = balanceService.findByProductId("" + product.getId());
-    List<LocationQuantity> locationList = new ArrayList<>();
-    int quantity = 0;
-    for (Balance balance : balanceList
-    ) {
-      LocationQuantity locationQuantity = new LocationQuantity(locationService.findLocationById(balance.getLocationId()), balance.getQuantity());
-      locationList.add(locationQuantity);
-      quantity += balance.getQuantity();
+    public BalanceUI getProductByName(String productName) {
+        Product product = productService.findProductByName(productName);
+        List<Balance> balanceList = balanceService.findByProductId("" + product.getId());
+        List<LocationQuantity> locationList = new ArrayList<>();
+        int quantity = 0;
+        for (Balance balance : balanceList
+        ) {
+            LocationQuantity locationQuantity = new LocationQuantity(locationService.findLocationById(balance.getLocationId()), balance.getQuantity());
+            locationList.add(locationQuantity);
+            quantity += balance.getQuantity();
+        }
+        return new BalanceUI(product.getId(), product, locationList, quantity);
     }
-    return new BalanceUI(product.getId(), product, locationList, quantity);
-  }
 
-  public BalanceUI getProductByNameAndLocationName(String productName, String locationName) {
-    Product product = productService.findProductByName(productName);
-    Location location = locationService.findLocationByName(locationName);
-    Balance balance = balanceService.findByProductIdAndLocationId("" + product.getId(), "" + location.getId());
-    List<LocationQuantity> locationList = new ArrayList<>();
-    int quantity = 0;
-    LocationQuantity locationQuantity = new LocationQuantity(location, balance.getQuantity());
-    locationList.add(locationQuantity);
-    quantity = balance.getQuantity();
-    return new BalanceUI(product.getId(), product, locationList, quantity);
-  }
-
-  public List<BalanceUI> getInventory(){
-    List<Product> productList = productService.getAllProducts();
-    List<BalanceUI> balanceUIS = new ArrayList<>();
-
-    productList.parallelStream().forEach(item -> createBalanceUI(item,balanceUIS));
-
-    return balanceUIS;
-  }
-
-  private void createBalanceUI(Product product,  List<BalanceUI> balanceUIS ){
-    List<Balance> balanceList = balanceService.findByProductId("" + product.getId());
-    List<LocationQuantity> locationList = new ArrayList<>();
-    int quantity = 0;
-    for (Balance balance : balanceList) {
-      LocationQuantity locationQuantity = new LocationQuantity(locationService.findLocationById(balance.getLocationId()), balance.getQuantity());
-      locationList.add(locationQuantity);
-      quantity += balance.getQuantity();
+    public BalanceUI getProductByNameAndLocationName(String productName, String locationName) {
+        Product product = productService.findProductByName(productName);
+        Location location = locationService.findLocationByName(locationName);
+        Balance balance = balanceService.findByProductIdAndLocationId("" + product.getId(), "" + location.getId());
+        List<LocationQuantity> locationList = new ArrayList<>();
+        int quantity = 0;
+        LocationQuantity locationQuantity = new LocationQuantity(location, balance.getQuantity());
+        locationList.add(locationQuantity);
+        quantity = balance.getQuantity();
+        return new BalanceUI(product.getId(), product, locationList, quantity);
     }
-    balanceUIS.add(new BalanceUI(product.getId(), product, locationList, quantity));
-  }
+
+    public List<BalanceUI> getInventory() {
+        List<Product> productList = productService.getAllProducts();
+        List<BalanceUI> balanceUIS = new ArrayList<>();
+
+        productList.parallelStream().forEach(item -> createBalanceUI(item, balanceUIS));
+
+        return balanceUIS;
+    }
+
+    private void createBalanceUI(Product product, List<BalanceUI> balanceUIS) {
+        List<Balance> balanceList = balanceService.findByProductId("" + product.getId());
+        List<LocationQuantity> locationList = new ArrayList<>();
+        int quantity = 0;
+        for (Balance balance : balanceList) {
+            LocationQuantity locationQuantity = new LocationQuantity(locationService.findLocationById(balance.getLocationId()), balance.getQuantity());
+            locationList.add(locationQuantity);
+            quantity += balance.getQuantity();
+        }
+        balanceUIS.add(new BalanceUI(product.getId(), product, locationList, quantity));
+    }
 }

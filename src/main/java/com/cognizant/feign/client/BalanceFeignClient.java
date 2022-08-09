@@ -10,12 +10,12 @@ import java.util.List;
 @FeignClient(name = "balance", url = "${balance.url}")
 public interface BalanceFeignClient {
 
-  @GetMapping("/balance")
-  List<Balance> findByProductId(@RequestParam String productId);
+    @GetMapping("/balance")
+    List<Balance> findByProductId(@RequestParam String productId);
 
-  @GetMapping("/balance")
-  Balance findByProductIdAndLocationId(@RequestParam int productId, @RequestParam int locationId);
+    @GetMapping("/balance")
+    Balance findByProductIdAndLocationId(@RequestParam int productId, @RequestParam int locationId);
 
-  @GetMapping("/balance")
-  List<Balance> getAllBalance();
+    @GetMapping("/balance")
+    List<Balance> getAllBalance();
 }

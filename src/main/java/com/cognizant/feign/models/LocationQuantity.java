@@ -8,6 +8,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Data
 public class LocationQuantity {
-  private Location location;
-  private int quantity;
+    private Location location;
+    private int quantity;
 }

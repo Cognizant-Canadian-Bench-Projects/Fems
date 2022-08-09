@@ -5,25 +5,34 @@ import com.cognizant.feign.models.Location;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class LocationServiceImpl implements LocationService {
 
-  @Autowired
-  private LocationFeignClient locationFeignClient;
+    @Autowired
+    private LocationFeignClient locationFeignClient;
 
-  @Override
-  public Location findLocationByName(String name) {
-    if (name.equals("")) {
-      throw new IllegalArgumentException("Please provide the location name");
+    @Override
+    public Location findLocationByName(String name) {
+        if (name.equals("")) {
+            throw new IllegalArgumentException("Please provide the location name");
+        }
+        return locationFeignClient.findLocationByName(name);
     }
-    return locationFeignClient.findLocationByName(name);
-  }
 
-  @Override
-  public Location findLocationById(int id) {
-    if (id <= 0) {
-      throw new IllegalArgumentException("Please provide the location id");
+    @Override
+    public Location findLocationById(int id) {
+        if (id <= 0) {
+            throw new IllegalArgumentException("Please provide the location id");
+        }
+        return locationFeignClient.findLocationById(id);
     }
-    return locationFeignClient.findLocationById(id);
-  }
+
+    @Override
+    public List<Location> getAllLocations() {
+        return locationFeignClient.getAllLocations();
+    }
+
+
 }

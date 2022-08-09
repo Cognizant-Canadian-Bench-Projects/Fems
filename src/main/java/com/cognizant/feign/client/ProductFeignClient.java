@@ -9,9 +9,9 @@ import java.util.List;
 
 @FeignClient(name = "product", url = "${product.url}")
 public interface ProductFeignClient {
-  @GetMapping("/products")
-  List<Product> getAllProducts();
+    @GetMapping("/products")
+    List<Product> getAllProducts();
 
-  @GetMapping("/products")
-  Product findProductByName(@RequestParam String name);
+    @GetMapping("/products")
+    Product findProductByName(@RequestParam String name);
 }
