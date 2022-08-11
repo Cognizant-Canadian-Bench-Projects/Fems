@@ -11,4 +11,6 @@ public interface LocationService {
     Location findLocationById(int id);
 
     List<Location> getAllLocations();
+
+    List<Location> getNearLocationByZipcode(String zipcode, String country,int radius);
 }

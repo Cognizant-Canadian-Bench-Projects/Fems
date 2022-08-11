@@ -20,5 +20,8 @@ public interface LocationFeignClient {
     @GetMapping("/locations/{id}")
     Location findLocationById(@PathVariable("id") int id);
 
+    @GetMapping("/geoname")
+    List<Location> getNearLocationByZipcode(@RequestParam String zipcode, @RequestParam String country, @RequestParam int radius);
+
 
 }

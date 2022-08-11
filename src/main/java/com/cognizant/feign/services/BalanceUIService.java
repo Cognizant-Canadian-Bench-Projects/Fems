@@ -54,6 +54,19 @@ public class BalanceUIService {
         return balanceUIS;
     }
 
+    public List<BalanceUI> updateDistances(List<BalanceUI> balances,List<Location> locations)  {
+        locations.stream().forEach(location->{
+            balances.stream().forEach(balance->{
+               balance.getLocationList().stream().filter(locationQuantity -> {
+                   locationQuantity.getLocation().equals(location)
+               }).forEach(balance);
+
+            }).forEach(balance->{
+                balance.getLocationList().get
+            });
+        });
+    }
+
     private void createBalanceUI(Product product, List<BalanceUI> balanceUIS) {
         List<Balance> balanceList = balanceService.findByProductId("" + product.getId());
         List<LocationQuantity> locationList = new ArrayList<>();

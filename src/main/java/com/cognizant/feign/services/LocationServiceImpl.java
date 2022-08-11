@@ -34,5 +34,10 @@ public class LocationServiceImpl implements LocationService {
         return locationFeignClient.getAllLocations();
     }
 
+    @Override
+    public List<Location> getNearLocationByZipcode(String zipcode, String country, int radius) {
+        return locationFeignClient.getNearLocationByZipcode(zipcode,country,radius);
+    }
+
 
 }

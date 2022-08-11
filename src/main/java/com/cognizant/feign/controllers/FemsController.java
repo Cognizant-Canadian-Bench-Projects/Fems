@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 
 @RestController
 @CrossOrigin(originPatterns = "*", exposedHeaders = "*", allowedHeaders = "*")
@@ -56,6 +58,13 @@ public class FemsController {
             return ResponseEntity.status(400).body(e.getMessage());
         }
         return ResponseEntity.ok(location);
+    }
+
+    @GetMapping("/geoname")
+    public ResponseEntity<?> getNearByLocationByZipcode(@RequestParam String zipcode, @RequestParam String country, @RequestParam int radius){
+        List<BalanceUI> updatedBalanceUI = balanceUIService.getInventory();
+       List<Location> updatedLocations =  locationService.getNearLocationByZipcode(zipcode, country, radius);
+        return ResponseEntity.ok(locationService.getNearLocationByZipcode(zipcode, country, radius));
     }
 
     @GetMapping("/balance")
