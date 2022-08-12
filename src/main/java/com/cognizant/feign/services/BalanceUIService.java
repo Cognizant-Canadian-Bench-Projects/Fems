@@ -57,23 +57,12 @@ public class BalanceUIService {
 
     public List<BalanceUI> updateDistances(List<BalanceUI> balances,List<Location> updatedLocations)  {
        List<BalanceUI> updatedBalanceUI = new ArrayList<>();
-        /* locations.stream().forEach(location->{
-            balances.stream().forEach(balance->{
-               balance.getLocationList().stream().filter(locationQuantity -> {
-                   locationQuantity.getLocation().equals(location)
-               }).forEach(balance);
 
-            }).forEach(balance->{
-                balance.getLocationList().get
-            });
-        });*/
-
-       /* updatedLocations.stream().forEach(updatedLocation -> {
+        updatedLocations.stream().forEach(updatedLocation -> {
             balances.stream().filter(balance-> {
-                System.out.println(balance.getLocationList());
-                System.out.println(updatedLocation);
                 AtomicBoolean updated = new AtomicBoolean(false);
-                balance.getLocationList().stream().filter(locationQuantity -> locationQuantity.getLocation().equals(updatedLocation))
+                balance.getLocationList().stream().filter(locationQuantity ->
+                        locationQuantity.getLocation().getZipcode().equals(updatedLocation.getZipcode()))
                     .forEach(locationQuantity -> {
                         updated.set(true);
                     locationQuantity.setLocation(updatedLocation);
@@ -82,11 +71,8 @@ public class BalanceUIService {
             }).forEach(balance -> {
                updatedBalanceUI.add(balance);
             });
-        });*/
+        });
 
-        balances.stream().flatMap(balance ->
-            balance.getLocationList().stream()
-            )
 
         return updatedBalanceUI;
     }
