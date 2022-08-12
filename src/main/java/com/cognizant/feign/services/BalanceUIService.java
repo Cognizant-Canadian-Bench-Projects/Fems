@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @Service
 public class BalanceUIService {
@@ -54,8 +55,9 @@ public class BalanceUIService {
         return balanceUIS;
     }
 
-    public List<BalanceUI> updateDistances(List<BalanceUI> balances,List<Location> locations)  {
-        locations.stream().forEach(location->{
+    public List<BalanceUI> updateDistances(List<BalanceUI> balances,List<Location> updatedLocations)  {
+       List<BalanceUI> updatedBalanceUI = new ArrayList<>();
+        /* locations.stream().forEach(location->{
             balances.stream().forEach(balance->{
                balance.getLocationList().stream().filter(locationQuantity -> {
                    locationQuantity.getLocation().equals(location)
@@ -64,7 +66,29 @@ public class BalanceUIService {
             }).forEach(balance->{
                 balance.getLocationList().get
             });
-        });
+        });*/
+
+       /* updatedLocations.stream().forEach(updatedLocation -> {
+            balances.stream().filter(balance-> {
+                System.out.println(balance.getLocationList());
+                System.out.println(updatedLocation);
+                AtomicBoolean updated = new AtomicBoolean(false);
+                balance.getLocationList().stream().filter(locationQuantity -> locationQuantity.getLocation().equals(updatedLocation))
+                    .forEach(locationQuantity -> {
+                        updated.set(true);
+                    locationQuantity.setLocation(updatedLocation);
+                });
+                return updated.get();
+            }).forEach(balance -> {
+               updatedBalanceUI.add(balance);
+            });
+        });*/
+
+        balances.stream().flatMap(balance ->
+            balance.getLocationList().stream()
+            )
+
+        return updatedBalanceUI;
     }
 
     private void createBalanceUI(Product product, List<BalanceUI> balanceUIS) {
