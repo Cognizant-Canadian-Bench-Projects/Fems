@@ -62,9 +62,7 @@ public class FemsController {
 
     @GetMapping("/geoname")
     public ResponseEntity<?> getNearByLocationByZipcode(@RequestParam String zipcode, @RequestParam String country, @RequestParam int radius){
-        List<BalanceUI> updatedBalanceUI = balanceUIService.getInventory();
-        List<Location> updatedLocations =  locationService.getNearLocationByZipcode(zipcode, country, radius);
-        return ResponseEntity.ok(balanceUIService.updateDistances(updatedBalanceUI,updatedLocations));
+        return ResponseEntity.ok(locationService.getNearLocationByZipcode(zipcode, country, radius));
     }
 
     @GetMapping("/balance")
